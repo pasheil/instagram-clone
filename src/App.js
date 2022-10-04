@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 // import Typography from "@mui/material/Typography";
 import { Button, Input } from "@mui/material";
 import ImageUpload from "./ImageUpload";
+import InstagramEmbed from "react-instagram-embed";
 
 function App() {
   const style = {
@@ -198,26 +199,48 @@ function App() {
           // src= {logo}
           alt=""
         />
-      {user ? (
-        <Button onClick={() => auth.signOut()}>Logout</Button>
-      ) : (
-        <div className="app__loginContainer">
-          <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onClick={() => setOpen(true)}>Sign Up</Button>
-        </div>
-      )}
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+        ) : (
+          <div className="app__loginContainer">
+            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+          </div>
+        )}
       </div>
 
-      <h1>Instagram Clone!</h1>
+      {/* <h1>Instagram Clone!</h1> */}
+      <div className="app__posts">
+        <div className="app__postsLeft">
+          {posts.map(({ id, post }) => (
+            <Post
+              key={id}
+              postId={id}
+              user={user}
+              username={post.username}
+              imageUrl={post.imageUrl}
+              caption={post.caption}
+            />
+          ))}
+        </div>
 
-      {posts.map(({ id, post }) => (
-        <Post
-          key={id}
-          username={post.username}
-          imageUrl={post.imageUrl}
-          caption={post.caption}
-        />
-      ))}
+<div className="app__postsRight">
+      {/* <InstagramEmbed
+        url="https://instagr.am/p/Zw9o4/"
+        clientAccessToken="1485340251892570|0bea9fb0cb43ed5176dd088656719d6d"
+        maxWidth={320}
+        hideCaption={false}
+        containerTagName="div"
+        protocol=""
+        injectScript
+        onLoading={() => {}}
+        onSuccess={() => {}}
+        onAfterRender={() => {}}
+        onFailure={() => {}}
+      /> */}
+</div>
+      </div>
+
 
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
